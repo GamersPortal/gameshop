@@ -1,10 +1,12 @@
 <?php namespace App\Models;
+
 use Baum\Node;
 
 /**
-* Category
-*/
-class Category extends Node {
+ * Category
+ */
+class Category extends Node
+{
 
   /**
    * Table name.
@@ -103,9 +105,11 @@ class Category extends Node {
 
   /**
    * Returns all products in category
+   *
    * @return App\Models\Product Collection of Product model
    */
-  public function products(){
+  public function products()
+  {
     return $this->hasMany('App\Models\Product');
   }
 }

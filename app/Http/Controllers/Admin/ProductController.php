@@ -14,236 +14,249 @@ use File;
 
 use Illuminate\Http\Request;
 
-class ProductController extends Controller {
+class ProductController extends Controller
+{
 
-	const DEFAULT_IMG = "img/no_product_img.jpg";
-	const PAGINATION_SIZE = 40;
+  const DEFAULT_IMG = "img/no_product_img.jpg";
+  const PAGINATION_SIZE = 40;
 
-	/**
-	 * Display a listing of the Product model instances.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
+  /**
+   * Display a listing of the Product model instances.
+   *
+   * @return Response
+   */
+  public function index()
+  {
 
-		// Select all products with pagination, paginate 40 products per page
-		$products = Product::paginate(self::PAGINATION_SIZE);
+    // Select all products with pagination, paginate 40 products per page
+    $products = Product::paginate(self::PAGINATION_SIZE);
 
-		return view('admin.products.index')->with(compact('products'));
-	}
+    return view('admin.products.index')->with(compact('products'));
+  }
 
-	/**
-	 * Show the form for creating a new product.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		
-		/**
-		 * Select all categories that have no child categories and return them in form of 
-		 * associative array (id => slug) for purpose of selecting product category
-		 * 
-		 * @var Category
-		 */
-		$categories = Category::allLeaves()->lists('slug', 'id');
+  /**
+   * Show the form for creating a new product.
+   *
+   * @return Response
+   */
+  public function create()
+  {
 
-		$categories[null] = 'No category';
+    /**
+     * Select all categories that have no child categories and return them in form of
+     * associative array (id => slug) for purpose of selecting product category
+     *
+     * @var Category
+     */
+    $categories = Category::allLeaves()->lists('slug', 'id');
 
-		return view('admin.products.create')->with(compact('categories'));
-	}
+    $categories[null] = 'No category';
 
-	/**
-	 * Store a newly created Product in database.
-	 *
-	 * @return Response
-	 */
-	public function store(ProductRequest $request)
-	{		
-		/**
-		 * Take all inputs except image, store image in seperate variable
-		 * @var Array
-		 */
-		$input = $request->except('image');
-		$image = $request->file('image');
+    return view('admin.products.create')->with(compact('categories'));
+  }
+
+  /**
+   * Store a newly created Product in database.
+   *
+   * @return Response
+   */
+  public function store(ProductRequest $request)
+  {
+    /**
+     * Take all inputs except image, store image in seperate variable
+     *
+     * @var Array
+     */
+    $input = $request->except('image');
+    $image = $request->file('image');
 
 
-		if($image != null){
-			// Picture name will be same as SKU
-			$name = $input['sku'];
+    if ($image != null) {
+      // Picture name will be same as SKU
+      $name = $input['sku'];
 
-			// Extenstion of original picture
-			$extension = '.' . $image->getClientOriginalExtension();
+      // Extenstion of original picture
+      $extension = '.' . $image->getClientOriginalExtension();
 
-			// Set paths for full image and thumbnail
-			$imagePath = 'img/' . $name . $extension;
-			$thumbnailPath = 'img/thumbs/' . $name . $extension;
+      // Set paths for full image and thumbnail
+      $imagePath = 'img/' . $name . $extension;
+      $thumbnailPath = 'img/thumbs/' . $name . $extension;
 
-			// Save original picture
-			\Image::make($image->getRealPath())->save(public_path($imagePath));
+      // Save original picture
+      \Image::make($image->getRealPath())->save(public_path($imagePath));
 
-			// Save resized thumbnail
-			\Image::make($image->getRealPath())->resize(300, null, function($constraint){
-				$constraint->aspectRatio();
-			})->save(public_path($thumbnailPath));
-		}
-		else {
+      // Save resized thumbnail
+      \Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
+        $constraint->aspectRatio();
+      })->save(public_path($thumbnailPath));
+    } else {
 
-			// Set default 'No image avaliable' images
-			$imagePath = self::DEFAULT_IMG;
-			$thumbnailPath = self::DEFAULT_IMG;
-		}
+      // Set default 'No image avaliable' images
+      $imagePath = self::DEFAULT_IMG;
+      $thumbnailPath = self::DEFAULT_IMG;
+    }
 
-		// Create Product model and save pictures
-		$product = Product::create($input);
-		$product->image = $imagePath;
-		$product->image_thumb = $thumbnailPath;
-		$product->save();
-	
+    // Create Product model and save pictures
+    $product = Product::create($input);
+    $product->image = $imagePath;
+    $product->image_thumb = $thumbnailPath;
+    $product->save();
 
-		return redirect(route('AdminProductIndex'));
-	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(Product $product)
-	{
-		
-		return view('admin.products.show')->with(compact('product'));
-	}
+    return redirect(route('AdminProductIndex'));
+  }
 
-	/**
-	 * Shows form for editing product
-	 * @param  Product $product
-	 * @return Response
-	 */
-	public function edit(Product $product)
-	{
+  /**
+   * Display the specified resource.
+   *
+   * @param  int $id
+   * @return Response
+   */
+  public function show(Product $product)
+  {
 
-		/**
-		 * Select all categories that have no child categories and return them in form of 
-		 * associative array (id => slug) for purpose of selecting product category
-		 * 
-		 * @var Category
-		 */
-		$categories = Category::allLeaves()->lists('slug', 'id');
+    return view('admin.products.show')->with(compact('product'));
+  }
 
-		$categories[null] = 'No category';
+  /**
+   * Shows form for editing product
+   *
+   * @param  Product $product
+   * @return Response
+   */
+  public function edit(Product $product)
+  {
 
-		return view('admin.products.edit')->with(compact('product', 'categories'));
-	}
+    /**
+     * Select all categories that have no child categories and return them in form of
+     * associative array (id => slug) for purpose of selecting product category
+     *
+     * @var Category
+     */
+    $categories = Category::allLeaves()->lists('slug', 'id');
 
-	/**
-	 * Update the specified product
-	 * @param  ProductRequest $request
-	 * @param  Product        $product
-	 * @return Response
-	 */
-	public function update(EditProductRequest $request, Product $product)
-	{
-		
-		$input = $request->except('image');
-		$image = $request->file('image');
 
-		if(!isset($input['active']))
-		{
-			$input['active'] = false;
-		}
+/*
+print_r($categories);
+exit;
+*/
 
-		if(!isset($input['new']))
-		{
-			$input['new'] = false;
-		}
 
-		if($image != null){
 
-			// Picture name will be same as SKU
-			$name = $input['sku'];
+    $categories[null] = 'No category';
 
-			// Extenstion of original picture
-			$extension = '.' . $image->getClientOriginalExtension();
+    return view('admin.products.edit')->with(compact('product', 'categories'));
+  }
 
-			// Set paths for full image and thumbnail
-			$imagePath = 'img/' . $name . $extension;
-			$thumbnailPath = 'img/thumbs/' . $name . $extension;
+  /**
+   * Update the specified product
+   *
+   * @param  ProductRequest $request
+   * @param  Product        $product
+   * @return Response
+   */
+  public function update(EditProductRequest $request, Product $product)
+  {
 
-			// Save original picture
-			\Image::make($image->getRealPath())->save(public_path($imagePath));
+    $input = $request->except('image');
+    $image = $request->file('image');
 
-			// Save resized thumbnail
-			\Image::make($image->getRealPath())->resize(300, null, function($constraint){
-				$constraint->aspectRatio();
-			})->save(public_path($thumbnailPath));
+    if (!isset($input['active'])) {
+      $input['active'] = false;
+    }
 
-			// Create Product model and save pictures
-			$product->fill($input);
-			$product->image = $imagePath;
-			$product->image_thumb = $thumbnailPath;
-			$product->save();
+    if (!isset($input['new'])) {
+      $input['new'] = false;
+    }
 
-			return redirect(route('AdminProductShow', $product->slug));
-		}
+    if ($image != null) {
 
-		$product->fill($input);
-		$product->save();
+      // Picture name will be same as SKU
+      $name = $input['sku'];
 
-		return redirect(route('AdminProductShow', $product->slug));
-	}
+      // Extenstion of original picture
+      $extension = '.' . $image->getClientOriginalExtension();
 
-	/**
-	 * Show the form for deleting specific product
-	 * @param  Product $product 
-	 * @return Response
-	 */
-	public function delete(Product $product)
-	{
+      // Set paths for full image and thumbnail
+      $imagePath = 'img/' . $name . $extension;
+      $thumbnailPath = 'img/thumbs/' . $name . $extension;
 
-		return view('admin.products.delete')->with(compact('product'));
-	}
+      // Save original picture
+      \Image::make($image->getRealPath())->save(public_path($imagePath));
 
-	/**
-	 * Deletes product
-	 * @param  Product $product
-	 * @return Response
-	 */
-	public function destroy(Product $product)
-	{	
-		/**
-		 * If the image of the product is not default 'No image available' 
-		 * image delete image from public directory
-		 */
-		if(public_path($product->image) != public_path(self::DEFAULT_IMG)){
+      // Save resized thumbnail
+      \Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
+        $constraint->aspectRatio();
+      })->save(public_path($thumbnailPath));
 
-			// Check if files exist
-			if(File::exists(public_path($product->image)) && File::exists(public_path($product->image_thumb))){
+      // Create Product model and save pictures
+      $product->fill($input);
+      $product->image = $imagePath;
+      $product->image_thumb = $thumbnailPath;
+      $product->save();
 
-				File::delete(public_path($product->image));
-				File::delete(public_path($product->image_thumb));
-			}
-		}
+      return redirect(route('AdminProductShow', $product->slug));
+    }
 
-		// Delete product
-		$product->delete();
+    $product->fill($input);
+    $product->save();
 
-		return redirect(route('AdminProductIndex'));
-	}
-	/**
-	 * Search products table
-	 * @param  Request $request
-	 * @return Response
-	 */
-	public function search(Request $request)
-	{
-		$query = $request->get('q');
+    return redirect(route('AdminProductShow', $product->slug));
+  }
 
-		$products = Product::where('name', 'like', '%'.$query.'%')
-			->paginate(self::PAGINATION_SIZE);
+  /**
+   * Show the form for deleting specific product
+   *
+   * @param  Product $product
+   * @return Response
+   */
+  public function delete(Product $product)
+  {
 
-		return view('admin.products.index', compact('products'));
-	}
+    return view('admin.products.delete')->with(compact('product'));
+  }
+
+  /**
+   * Deletes product
+   *
+   * @param  Product $product
+   * @return Response
+   */
+  public function destroy(Product $product)
+  {
+    /**
+     * If the image of the product is not default 'No image available'
+     * image delete image from public directory
+     */
+    if (public_path($product->image) != public_path(self::DEFAULT_IMG)) {
+
+      // Check if files exist
+      if (File::exists(public_path($product->image)) && File::exists(public_path($product->image_thumb))) {
+
+        File::delete(public_path($product->image));
+        File::delete(public_path($product->image_thumb));
+      }
+    }
+
+    // Delete product
+    $product->delete();
+
+    return redirect(route('AdminProductIndex'));
+  }
+
+  /**
+   * Search products table
+   *
+   * @param  Request $request
+   * @return Response
+   */
+  public function search(Request $request)
+  {
+    $query = $request->get('q');
+
+    $products = Product::where('name', 'like', '%' . $query . '%')
+      ->paginate(self::PAGINATION_SIZE);
+
+    return view('admin.products.index', compact('products'));
+  }
 }

@@ -2,7 +2,7 @@
 
 @section('main')
 
-@include('store.products.new-products')
-@include('store.products.discounted-products')
+    @include('store.products.new-products')
+    @include('store.products.discounted-products')
 
 @endsection

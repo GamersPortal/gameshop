@@ -8,71 +8,74 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract {
+class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
+{
 
-	use Authenticatable, Authorizable, CanResetPassword;
+  use Authenticatable, Authorizable, CanResetPassword;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+  /**
+   * The database table used by the model.
+   *
+   * @var string
+   */
+  protected $table = 'users';
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = ['name', 'email', 'password', 'address_id', 'code', 'activated'];
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = ['name', 'email', 'password', 'address_id', 'code', 'activated'];
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
+  /**
+   * The attributes excluded from the model's JSON form.
+   *
+   * @var array
+   */
+  protected $hidden = ['password', 'remember_token'];
 
-	protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+  protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
-	/**
-	 * Activates the user
-	 * @return User
-	 */
-	public function activate()
-	{
-		$this->activated = 1;
-		$this->code = null;
+  /**
+   * Activates the user
+   *
+   * @return User
+   */
+  public function activate()
+  {
+    $this->activated = 1;
+    $this->code = null;
 
-		return $this;
-	}
+    return $this;
+  }
 
-	/**
-	 * Return Address Model instance
-	 * @return \App\Models\Address
-	 */
-	public function address()
-	{
-		return $this->hasOne('\App\Models\Address', 'id', 'address_id');
-	}
+  /**
+   * Return Address Model instance
+   *
+   * @return \App\Models\Address
+   */
+  public function address()
+  {
+    return $this->hasOne('\App\Models\Address', 'id', 'address_id');
+  }
 
-	public function orders()
-	{
-		return $this->hasMany('\App\Models\Order');
-	}
+  public function orders()
+  {
+    return $this->hasMany('\App\Models\Order');
+  }
 
-	public function roles()
-    {
-        return $this->belongsToMany('App\Models\Role');
+  public function roles()
+  {
+    return $this->belongsToMany('App\Models\Role');
+  }
+
+  public function isAdmin()
+  {
+    foreach ($this->roles as $role) {
+      if ($role->name == 'Administrator')
+        return true;
     }
 
-    public function isAdmin()
-    {
-    	foreach ($this->roles as $role) {
-    		if($role->name == 'Administrator')
-    			return true;
-    	}
-
-    	return false;
-    }
+    return false;
+  }
 }

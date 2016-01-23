@@ -20,7 +20,8 @@
 		"webpatser/laravel-countries": "dev-master",
 		"adrianmejias/laravel-states": "dev-master",
 		"stripe/stripe-php": "3.*",
-		"orangehill/iseed": "dev-master"
+		"orangehill/iseed": "dev-master",
+		"dflydev/markdown": "^1.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
