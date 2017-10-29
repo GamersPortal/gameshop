@@ -99,7 +99,7 @@ return [
     'Illuminate\Bus\BusServiceProvider',
     'Illuminate\Cache\CacheServiceProvider',
     'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-    'Illuminate\Routing\ControllerServiceProvider',
+    //'Illuminate\Routing\ControllerServiceProvider',
     'Illuminate\Cookie\CookieServiceProvider',
     'Illuminate\Database\DatabaseServiceProvider',
     'Illuminate\Encryption\EncryptionServiceProvider',
@@ -135,8 +135,8 @@ return [
     //'Illuminate\Html\HtmlServiceProvider',
     'HieuLe\Active\ActiveServiceProvider',
     'Gloudemans\Shoppingcart\ShoppingcartServiceProvider',
-    'Webpatser\Countries\CountriesServiceProvider',
-    'AdrianMejias\States\StatesServiceProvider',
+    //'Webpatser\Countries\CountriesServiceProvider',
+    //'AdrianMejias\States\StatesServiceProvider',
     //'Orangehill\Iseed\IseedServiceProvider',
   ],
     /*
@@ -189,8 +189,8 @@ return [
     'Html' => Collective\Html\HtmlFacade::class,
     'Active' => 'HieuLe\Active\Facades\Active',
     'Cart' => 'Gloudemans\Shoppingcart\Facades\Cart',
-    'Countries' => 'Webpatser\Countries\CountriesFacade',
-    'States' => 'AdrianMejias\States\StatesFacade',
+    //'Countries' => 'Webpatser\Countries\CountriesFacade',
+    //'States' => 'AdrianMejias\States\StatesFacade',
     'Gate' => 'Illuminate\Support\Facades\GateFacade'
   ],
 ];
