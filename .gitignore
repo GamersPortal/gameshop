@@ -8,6 +8,9 @@
 *.sublime-project
 *.sublime-workspace
 
+# Ignore phpstorm Text related files
+.idea
+
 # Ignore files in img and img/thumb folders, except folders themselves and no_product_img
 public/img/*
 !public/img/thumbs/

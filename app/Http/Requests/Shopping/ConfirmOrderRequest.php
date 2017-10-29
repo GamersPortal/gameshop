@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Shopping;
 
 use App\Http\Requests\Request;

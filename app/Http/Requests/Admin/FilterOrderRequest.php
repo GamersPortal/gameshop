@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
@@ -24,7 +23,7 @@ class FilterOrderRequest extends Request
     public function rules()
     {
         return [
-            'orderFilter' => 'integer|exists:status_codes,id'
+          'orderFilter' => 'integer|exists:status_codes,id'
         ];
     }
 }

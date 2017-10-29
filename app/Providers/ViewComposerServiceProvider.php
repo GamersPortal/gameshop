@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
-
 use Auth;
 use Cart;
 
@@ -42,8 +39,9 @@ class ViewComposerServiceProvider extends ServiceProvider
      * Send categories variable to side.navigation partial
      * @return void
      */
-    private function composeSidebarNavigation(){
-        view()->composer('store.side-navigation', function($view){
+    private function composeSidebarNavigation()
+    {
+        view()->composer('store.side-navigation', function ($view) {
             $view->with('categories', Category::all()->toHierarchy());
         });
     }
@@ -54,21 +52,21 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     private function composeNewProductsPanel()
     {
-        view()->composer('store.products.new-products', function($view){
+        view()->composer('store.products.new-products', function ($view) {
             $view->with('products', Product::where('active', 1)
-                                            ->where('new', 1)
-                                            ->orderBy('created_at', 'DESC')
-                                            ->take(8)->get());
+              ->where('new', 1)
+              ->orderBy('created_at', 'DESC')
+              ->take(8)->get());
         });
     }
 
     private function composeDiscountedProductsPanel()
     {
-        view()->composer('store.products.discounted-products', function($view){
+        view()->composer('store.products.discounted-products', function ($view) {
             $view->with('products', Product::where('active', 1)
-                                            ->where('discounted_price', '!=', "NULL")
-                                            ->orderBy('created_at', 'DESC')
-                                            ->take(8)->get());
+              ->where('discounted_price', '!=', "NULL")
+              ->orderBy('created_at', 'DESC')
+              ->take(8)->get());
         });
     }
 
@@ -78,11 +76,10 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     private function composeCartPanel()
     {
-        view()->composer('store.shopping.cart-panel', function($view){
+        view()->composer('store.shopping.cart-panel', function ($view) {
             $view->with([
-                'user' => Auth::user(),
-                'cartCount' => Cart::count(),
-
+              'user' => Auth::user(),
+              'cartCount' => Cart::count(),
             ]);
         });
     }
@@ -94,23 +91,23 @@ class ViewComposerServiceProvider extends ServiceProvider
     private function composeCartInstance()
     {
         view()->composer([
-                'store.shopping.cart',
-                'store.shopping.checkout',
-                'store.shopping.confirm',
-                'store.shopping.order-shipping'
-            ], function($view){
+          'store.shopping.cart',
+          'store.shopping.checkout',
+          'store.shopping.confirm',
+          'store.shopping.order-shipping'
+        ], function ($view) {
             $view->with([
-                'cart' => Cart::instance('main'),
+              'cart' => Cart::instance('main'),
             ]);
         });
     }
 
     private function composeAdminSidebar()
     {
-        view()->composer('admin.sidebar', function($view){
+        view()->composer('admin.sidebar', function ($view) {
             $view->with([
-                'pendingOrderCount' => Order::where('status_code_id', 1)->count(),
-                'proccessingOrderCount' => Order::where('status_code_id', 2)->count(),
+              'pendingOrderCount' => Order::where('status_code_id', 1)->count(),
+              'proccessingOrderCount' => Order::where('status_code_id', 2)->count(),
             ]);
         });
     }

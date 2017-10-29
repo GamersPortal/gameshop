@@ -5,65 +5,74 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-  protected $table = 'products';
+    protected $table = 'products';
 
-  protected $fillable = ['name', 'category_id', 'sku', 'quantity', 'image', 'image_thumb', 'slug',
-    'weight', 'price', 'description', 'discounted_price', 'active', 'new'];
+    protected $fillable = [
+      'name',
+      'category_id',
+      'sku',
+      'quantity',
+      'image',
+      'image_thumb',
+      'slug',
+      'weight',
+      'price',
+      'description',
+      'discounted_price',
+      'active',
+      'new'
+    ];
 
-  protected $casts = [
-    'new' => 'boolean',
-  ];
-
-  /**
-   * Returns category of product
-   *
-   * @return App\Models\Category
-   */
-  public function category()
-  {
-    return $this->belongsTo('App\Models\Category');
-  }
-
-  /**
-   * Get discounted price if there'is discount
-   *
-   * @return Decimal
-   */
-  public function getRealPriceAttribute()
-  {
-
-    if ($this->discounted_price != null) {
-      return $this->discounted_price;
-    }
-
-    return $this->price;
-  }
-
-  /**
-   * Model events
-   *
-   * @return void
-   */
-  public static function boot()
-  {
-    parent::boot();
+    protected $casts = [
+      'new' => 'boolean',
+    ];
 
     /**
-     * Triggered when Product model is saved
+     * Returns category of product
+     *
+     * @return App\Models\Category
      */
-    static::saving(function ($model) {
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
 
-      /**
-       * If discounted price is empty string, set it to null
-       */
-      if (empty(trim($model->discounted_price))) {
-        $model->discounted_price = null;
-      }
-    });
-  }
+    /**
+     * Get discounted price if there'is discount
+     *
+     * @return Decimal
+     */
+    public function getRealPriceAttribute()
+    {
+        if ($this->discounted_price != null) {
+            return $this->discounted_price;
+        }
+        return $this->price;
+    }
 
-  public function products()
-  {
-    return $this->belongsToMany('App\Models\Order', 'order_product');
-  }
+    /**
+     * Model events
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        /**
+         * Triggered when Product model is saved
+         */
+        static::saving(function ($model) {
+            /**
+             * If discounted price is empty string, set it to null
+             */
+            if (empty(trim($model->discounted_price))) {
+                $model->discounted_price = null;
+            }
+        });
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Order', 'order_product');
+    }
 }

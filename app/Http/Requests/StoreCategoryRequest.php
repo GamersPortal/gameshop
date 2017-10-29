@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
@@ -13,7 +12,7 @@ class StoreCategoryRequest extends Request
      */
     public function authorize()
     {
-        
+
     }
 
     /**

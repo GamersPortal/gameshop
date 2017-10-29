@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
@@ -24,7 +23,7 @@ class EditOrderRequest extends Request
     public function rules()
     {
         return [
-            'status_code_id' => 'required|integer|exists:status_codes,id|min:2',
+          'status_code_id' => 'required|integer|exists:status_codes,id|min:2',
         ];
     }
 }

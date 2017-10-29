@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Shopping;
 
 use App\Http\Requests\Request;
@@ -24,7 +23,7 @@ class AddToCartRequest extends Request
     public function rules()
     {
         return [
-            'product_id' => 'required|exists:products,id'
+          'product_id' => 'required|exists:products,id'
         ];
     }
 }

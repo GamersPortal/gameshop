@@ -1,8 +1,8 @@
 <?php
-
 use Illuminate\Database\Seeder;
 
-class StatesSeeder extends Seeder {
+class StatesSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
@@ -12,16 +12,15 @@ class StatesSeeder extends Seeder {
     public function run()
     {
         //Empty the states table
-        DB::table(\Config::get('states.table_name'))->delete();
-
+        /*DB::table(\Config::get('states.table_name'))->delete();
         //Get all of the states
         $states = States::getList();
-        foreach ($states as $stateId => $state){
+        foreach ($states as $stateId => $state) {
             DB::table(\Config::get('states.table_name'))->insert(array(
-                'id' => $stateId,
-                'iso_3166_2' => $state['iso_3166_2'],
-                'name' => $state['name'],
+              'id' => $stateId,
+              'iso_3166_2' => $state['iso_3166_2'],
+              'name' => $state['name'],
             ));
-        }
+        }*/
     }
 }

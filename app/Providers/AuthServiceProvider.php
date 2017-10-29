@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
@@ -13,20 +12,19 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+      'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
      * Register any application authentication / authorization services.
      *
-     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * @param  \Illuminate\Contracts\Auth\Access\Gate $gate
      * @return void
      */
     public function boot(GateContract $gate)
     {
         parent::registerPolicies($gate);
-
-        $gate->define('show-order', function($user, $order){
+        $gate->define('show-order', function ($user, $order) {
             return $user->id == $order->user_id;
         });
     }

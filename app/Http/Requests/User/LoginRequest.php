@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
@@ -24,8 +23,8 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|between:6,25'
+          'email' => 'required|email|exists:users,email',
+          'password' => 'required|between:6,25'
         ];
     }
 }

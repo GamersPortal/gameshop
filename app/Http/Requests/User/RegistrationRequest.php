@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\User;
 
 use App\Http\Requests\Request;
@@ -24,15 +23,15 @@ class RegistrationRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|between:3,255',
-            'password' => 'required|between:6,25',
-            'email' => 'required|email|unique:users,email',
-            'repeat_password' => 'required|same:password',
-            'country_id' => 'required|exists:countries,id',
-            'state_id' => 'required_if:country,840',
-            'city' => 'required',
-            'street' => 'required|between:3,255',
-            'ZIP' => 'required',
+          'name' => 'required|between:3,255',
+          'password' => 'required|between:6,25',
+          'email' => 'required|email|unique:users,email',
+          'repeat_password' => 'required|same:password',
+          'country_id' => 'required|exists:countries,id',
+          'state_id' => 'required_if:country,840',
+          'city' => 'required',
+          'street' => 'required|between:3,255',
+          'ZIP' => 'required',
         ];
     }
 }

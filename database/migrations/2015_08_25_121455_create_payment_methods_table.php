@@ -1,7 +1,6 @@
 <?php
-
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePaymentMethodsTable extends Migration
 {
@@ -14,9 +13,7 @@ class CreatePaymentMethodsTable extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('name');
-
             $table->timestamps();
         });
     }

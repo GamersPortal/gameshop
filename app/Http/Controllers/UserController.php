@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Events\UserIsRegistered;
@@ -23,7 +22,6 @@ class UserController extends Controller
      */
     public function getRegister()
     {
-
         return view('store.user.register');
     }
 
@@ -36,24 +34,17 @@ class UserController extends Controller
     public function postRegister(RegistrationRequest $request)
     {
         $input = $request->except('repeat_password');
-
-        if($input['country_id'] != 840)
-        {
+        if ($input['country_id'] != 840) {
             $input['state_id'] = null;
         }
-
         $input['code'] = str_random(30);
         $input['password'] = Hash::make($request['password']);
-        
         $address = Address::create($input);
         $input['address_id'] = $address->id;
-        
         $user = User::create($input);
-
         Event::fire(new UserIsRegistered($user));
-
         return redirect(route('StoreUserLoginGet'))
-        ->with('flag', 'activationSent');
+          ->with('flag', 'activationSent');
     }
 
     /**b
@@ -62,7 +53,6 @@ class UserController extends Controller
      */
     public function getLogin()
     {
-
         return view('store.user.login');
     }
 
@@ -72,13 +62,12 @@ class UserController extends Controller
      * @return Response
      */
     public function postLogin(LoginRequest $request)
-    {   
+    {
         $remember = $request->input('remember') ? true : false;
-        
         // If user is logging in with correct credentials and if it's activated
-        if(Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'activated' => 1], 
-            $remember ))
-        {
+        if (Auth::attempt(['email' => $request['email'], 'password' => $request['password'], 'activated' => 1],
+          $remember)
+        ) {
             return redirect()->intended('/');
         } else {
             return redirect()->route('StoreUserLoginGet')->with('flag', 'wrongLogin');
@@ -92,7 +81,6 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-
         return redirect()->intended('/');
     }
 
@@ -104,26 +92,22 @@ class UserController extends Controller
     public function getActivation($code)
     {
         $user = User::where('activated', 0)->where('code', $code)->first();
-
-        if($user == null)
-        {
+        if ($user == null) {
             return redirect(route('StoreUserLoginGet'))
-            ->with('flag', 'notActivated');
+              ->with('flag', 'notActivated');
         } else {
             $user->activate()->save();
-
             return redirect(route('StoreUserLoginGet'))
-            ->with('flag', 'activated');
+              ->with('flag', 'activated');
         }
     }
 
     public function userProfile()
     {
         $user = auth()->user();
-
         return view('store.user.profile', compact('user'));
     }
-    
+
     public function showUserOrder($order)
     {
         // $this->authorize('show-order');
