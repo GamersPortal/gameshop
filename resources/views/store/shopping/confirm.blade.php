@@ -3,12 +3,12 @@
 @section('main')
 
   <div class="panel panel-brand">
-    <div class="panel-heading"><h3 class="panel-title text-center">Product(s)</h3></div>
+    <div class="panel-heading"><h3 class="panel-title text-center">Game(s)</h3></div>
     <div class="panel-body white-section">
       <ul class="list-group">
-        @foreach($cart->content() as $product)
-          <li class="list-group-item">{{ $product->name }}, x{{ $product->qty }},
-            ${{ $product->price * $product->qty }} </li>
+        @foreach($cart->content() as $game)
+          <li class="list-group-item">{{ $game->name }}, x{{ $game->qty }},
+            ${{ $game->price * $game->qty }} </li>
         @endforeach
         @if( Cart::total() < 150)
           <li class="list-group-item">Shipping (if order is under $150), $15</li>
@@ -42,7 +42,7 @@
           data-key="pk_test_Z1xHfrj7X6ngwa8MhtnB97TD"
           data-amount="{{ $cart->totalWithShipping() * 100}}"
           data-name="Gameshop"
-          data-description="{{ $cart->count() }} product(s) - ${{ $cart->totalWithShipping() }}"
+          data-description="{{ $cart->count() }} game(s) - ${{ $cart->totalWithShipping() }}"
           data-image="{{ asset('favicon.png') }}"
           data-locale="auto">
         </script>

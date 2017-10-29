@@ -18,13 +18,13 @@ class Order extends Model
     protected $dates = ['created_at', 'updated_at'];
 
     /**
-     * For retrieving order products
+     * For retrieving order games
      *
-     * @return App\Models\Product
+     * @return App\Models\Game
      */
-    public function products()
+    public function games()
     {
-        return $this->hasMany('App\Models\OrderProduct');
+        return $this->hasMany('App\Models\OrderGame');
     }
 
     public function status_code()

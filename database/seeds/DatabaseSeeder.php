@@ -26,11 +26,11 @@ class DatabaseSeeder extends Seeder
         //$this->call('StatesTableSeeder');
         $this->call('CategoriesTableSeeder');
         //$this->call('AddressesTableSeeder');
-        $this->call('ProductsTableSeeder');
+        $this->call('GamesTableSeeder');
         $this->call('StatusCodesTableSeeder');
         $this->call('PaymentMethodsTableSeeder');
         $this->call('OrdersTableSeeder');
-        $this->call('OrderProductTableSeeder');
+        $this->call('OrderGameTableSeeder');
     }
 
 }

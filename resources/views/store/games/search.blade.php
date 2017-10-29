@@ -7,10 +7,10 @@
       <h3 class="panel-title">Search results</h3>
     </div>
     <div class="panel-body">
-      @if(! $products->count())
+      @if(! $games->count())
         <p>No results</p>
       @else
-        @include('store.products.list')
+        @include('store.games.list')
       @endif
     </div>
   </div>

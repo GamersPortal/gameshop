@@ -27,9 +27,9 @@ class EmailInvoice
     public function handle(OrderWasPlaced $event)
     {
         $order = $event->order;
-        foreach ($order->products as $orderItem) {
-            $orderItem->product->quantity -= $orderItem->quantity;
-            $orderItem->product->save();
+        foreach ($order->games as $orderItem) {
+            $orderItem->game->quantity -= $orderItem->quantity;
+            $orderItem->game->save();
         }
         // Mail::send('emails.order-invoice', ['order' => $order], function ($m) use ($order) {
         //     $m->from('gameshop.zavrsni.rad@gmail.com', 'Gameshop - Order');

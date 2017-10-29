@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests;
 
-class EditProductRequest extends Request
+class EditGameRequest extends Request
 {
 
     /**

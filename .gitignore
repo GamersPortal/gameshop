@@ -11,12 +11,12 @@
 # Ignore phpstorm Text related files
 .idea
 
-# Ignore files in img and img/thumb folders, except folders themselves and no_product_img
+# Ignore files in img and img/thumb folders, except folders themselves and no_game_img
 public/img/*
 !public/img/thumbs/
 public/img/thumbs/*
 !public/img/thumbs/readme.md
-!public/img/no_product_img.jpg
+!public/img/no_game_img.jpg
 
 # Ignore Laravel 5 _ide_helper.php
 _ide_helper.php

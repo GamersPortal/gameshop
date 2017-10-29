@@ -40,8 +40,8 @@
             <dt>Slug</dt>
             <dd>{{ $category->slug }}</dd>
 
-            <dt>No. of products</dt>
-            <dd>@if($category->isLeaf()){{ $category->products->count() }}@else {{ 'Not a leaf category'}} @endif</dd>
+            <dt>No. of games</dt>
+            <dd>@if($category->isLeaf()){{ $category->games->count() }}@else {{ 'Not a leaf category'}} @endif</dd>
           </dl>
         </div>
       </div>

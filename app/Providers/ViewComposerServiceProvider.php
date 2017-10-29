@@ -3,7 +3,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Category;
-use App\Models\Product;
+use App\Models\Game;
 use App\Models\Order;
 use Auth;
 use Cart;
@@ -18,8 +18,8 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->composeSidebarNavigation();
-        $this->composeNewProductsPanel();
-        $this->composeDiscountedProductsPanel();
+        $this->composeNewGamesPanel();
+        $this->composeDiscountedGamesPanel();
         $this->composeCartPanel();
         $this->composeCartInstance();
         $this->composeAdminSidebar();
@@ -47,23 +47,23 @@ class ViewComposerServiceProvider extends ServiceProvider
     }
 
     /**
-     * Select 8 products with New label
+     * Select 8 games with New label
      * @return Void
      */
-    private function composeNewProductsPanel()
+    private function composeNewGamesPanel()
     {
-        view()->composer('store.products.new-products', function ($view) {
-            $view->with('products', Product::where('active', 1)
+        view()->composer('store.games.new-games', function ($view) {
+            $view->with('games', Game::where('active', 1)
               ->where('new', 1)
               ->orderBy('created_at', 'DESC')
               ->take(8)->get());
         });
     }
 
-    private function composeDiscountedProductsPanel()
+    private function composeDiscountedGamesPanel()
     {
-        view()->composer('store.products.discounted-products', function ($view) {
-            $view->with('products', Product::where('active', 1)
+        view()->composer('store.games.discounted-games', function ($view) {
+            $view->with('games', Game::where('active', 1)
               ->where('discounted_price', '!=', "NULL")
               ->orderBy('created_at', 'DESC')
               ->take(8)->get());

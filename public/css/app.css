@@ -6365,28 +6365,28 @@ div.main {
   margin-left: 10px;
   border-radius: 6px 0 6px 6px; }
 
-.white-section, .navigation, .product, .cart-content {
+.white-section, .navigation, .game, .cart-content {
   border-radius: 3px;
   background-color: white; }
 
-.products, .product-wrapper {
+.games, .game-wrapper {
   text-align: center; }
 
-.product-wrapper {
+.game-wrapper {
   margin-bottom: 3px;
   padding: 5px; }
 
-.product {
+.game {
   padding-bottom: 12px;
   padding-top: 10px; }
 
-a.product-link, a.product-link:hover, a.product-link:active {
+a.game-link, a.game-link:hover, a.game-link:active {
   color: inherit; }
 
 a.inherit, a.inherit:hover, a.inherit:active {
   color: inherit; }
 
-.product-listing-title {
+.game-listing-title {
   height: 1.9em;
   margin-left: 5px;
   margin-right: 5px;
@@ -6399,7 +6399,7 @@ a.inherit, a.inherit:hover, a.inherit:active {
   color: #F44336;
   text-decoration: line-through; }
 
-div.product-img-wrapper {
+div.game-img-wrapper {
   width: 120px;
   height: 170px;
   overflow: auto;
@@ -6495,13 +6495,13 @@ a.root-parent, a.root-parent:active {
   color: black;
   font-weight: 700; }
 
-.product-section {
+.game-section {
   background: white; }
 
-.product-title {
+.game-title {
   font-weight: bold; }
 
-div.product-img-wrapper-big {
+div.game-img-wrapper-big {
   width: 100%;
   height: 100%;
   overflow: auto;

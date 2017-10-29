@@ -13,7 +13,7 @@
         </h3>
       </div>
       <div class="panel-body">
-        <div class="alert alert-danger" role="alert">Are you sure you want to delete this category? Products in this
+        <div class="alert alert-danger" role="alert">Are you sure you want to delete this category? Games in this
           category won't have category anymore.
         </div>
         {!! Form::model($category, ['method' => 'DELETE', 'url' => route('AdminCategoryDestroy', $category->slug)]) !!}

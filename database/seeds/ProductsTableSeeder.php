@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Seeder;
 
-class ProductsTableSeeder extends Seeder
+class GamesTableSeeder extends Seeder
 {
 
     /**
@@ -11,8 +11,8 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::table('products')->delete();
-        \DB::table('products')->insert(array(
+        \DB::table('games')->delete();
+        \DB::table('games')->insert(array(
           0 =>
             array(
               'id' => 11,

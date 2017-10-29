@@ -1,6 +1,6 @@
 <?php namespace App\Http\Requests;
 
-class ProductRequest extends Request
+class GameRequest extends Request
 {
 
     /**
@@ -26,8 +26,8 @@ class ProductRequest extends Request
           'description' => 'required|min:10',
           'image' => 'image|max:2048',
           'price' => 'required|numeric',
-          'slug' => 'required|between:3,255|alpha_dash|unique:products,slug',
-          'sku' => 'required|between:3,255|alpha_dash|unique:products,sku',
+          'slug' => 'required|between:3,255|alpha_dash|unique:games,slug',
+          'sku' => 'required|between:3,255|alpha_dash|unique:games,sku',
           'quantity' => 'required|integer',
           'weight' => 'required|numeric',
         ];

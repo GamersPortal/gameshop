@@ -20,7 +20,7 @@ class MigrationsTableSeeder extends Seeder
             ),
           1 =>
             array(
-              'migration' => '2015_06_04_120143_create_products_table',
+              'migration' => '2015_06_04_120143_create_games_table',
               'batch' => 1,
             ),
           2 =>
@@ -60,7 +60,7 @@ class MigrationsTableSeeder extends Seeder
             ),
           9 =>
             array(
-              'migration' => '2015_08_24_213905_create_order_product_table',
+              'migration' => '2015_08_24_213905_create_order_game_table',
               'batch' => 3,
             ),
           10 =>

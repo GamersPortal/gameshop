@@ -54,10 +54,10 @@ INSERT INTO `addresses` (`id`, `name`, `street`, `country_id`, `state_id`, `ZIP`
 
 CREATE TABLE IF NOT EXISTS `categories` (
 `id` int(10) unsigned NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `lft` int(11) DEFAULT NULL,
-  `rgt` int(11) DEFAULT NULL,
-  `depth` int(11) DEFAULT NULL,
+  `parent_id` int(10) DEFAULT NULL,
+  `lft` int(10) DEFAULT NULL,
+  `rgt` int(10) DEFAULT NULL,
+  `depth` int(10) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `slug` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -87,7 +87,7 @@ INSERT INTO `categories` (`id`, `parent_id`, `lft`, `rgt`, `depth`, `name`, `slu
 --
 
 CREATE TABLE IF NOT EXISTS `countries` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `capital` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `citizenship` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `country_code` char(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -369,7 +369,7 @@ INSERT INTO `countries` (`id`, `capital`, `citizenship`, `country_code`, `curren
 
 CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `batch` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 
 INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_06_04_114110_create_categories_table', 1),
-('2015_06_04_120143_create_products_table', 1),
+('2015_06_04_120143_create_games_table', 1),
 ('2015_06_04_142238_create_users_table', 1),
 ('2015_08_14_201719_setup_countries_table', 1),
 ('2015_08_14_201720_charify_countries_table', 1),
@@ -386,7 +386,7 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_08_14_202840_charify_states_table', 1),
 ('2015_08_24_132217_create_addresses_table', 2),
 ('2015_08_24_211316_create_status_codes_table', 3),
-('2015_08_24_213905_create_order_product_table', 3),
+('2015_08_24_213905_create_order_game_table', 3),
 ('2015_08_25_121455_create_payment_methods_table', 3),
 ('2015_08_25_152915_create_orders_table', 3);
 
@@ -425,13 +425,13 @@ INSERT INTO `orders` (`id`, `status_code_id`, `weight`, `full_price`, `user_id`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_product`
+-- Table structure for table `order_game`
 --
 
-CREATE TABLE IF NOT EXISTS `order_product` (
+CREATE TABLE IF NOT EXISTS `order_game` (
 `id` int(10) unsigned NOT NULL,
   `order_id` int(10) unsigned NOT NULL,
-  `product_id` int(10) unsigned NOT NULL,
+  `game_id` int(10) unsigned NOT NULL,
   `quantity` int(10) unsigned NOT NULL,
   `price` double(8,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -439,10 +439,10 @@ CREATE TABLE IF NOT EXISTS `order_product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `order_product`
+-- Dumping data for table `order_game`
 --
 
-INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+INSERT INTO `order_game` (`id`, `order_id`, `game_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
 (1, 3, 13, 1, 449.99, '2015-08-25 18:14:09', '2015-08-25 18:14:09'),
 (2, 3, 12, 1, 44.99, '2015-08-25 18:14:09', '2015-08-25 18:14:09'),
 (3, 4, 18, 1, 39.99, '2015-08-25 18:37:19', '2015-08-25 18:37:19'),
@@ -481,10 +481,10 @@ INSERT INTO `payment_methods` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Table structure for table `games`
 --
 
-CREATE TABLE IF NOT EXISTS `products` (
+CREATE TABLE IF NOT EXISTS `games` (
 `id` int(10) unsigned NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `new` tinyint(1) NOT NULL DEFAULT '0',
@@ -492,22 +492,22 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_id` int(10) unsigned DEFAULT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'img/product-no-image.jpg',
-  `image_thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'img/product-no-image.jpg',
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'img/game-no-image.jpg',
+  `image_thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'img/game-no-image.jpg',
   `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `discounted_price` decimal(8,2) DEFAULT NULL,
   `sku` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
+  `quantity` int(10) DEFAULT NULL,
   `weight` decimal(8,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `products`
+-- Dumping data for table `games`
 --
 
-INSERT INTO `products` (`id`, `active`, `new`, `name`, `category_id`, `description`, `price`, `image`, `image_thumb`, `slug`, `discounted_price`, `sku`, `quantity`, `weight`, `created_at`, `updated_at`) VALUES
+INSERT INTO `games` (`id`, `active`, `new`, `name`, `category_id`, `description`, `price`, `image`, `image_thumb`, `slug`, `discounted_price`, `sku`, `quantity`, `weight`, `created_at`, `updated_at`) VALUES
 (11, 1, 0, 'Driveclub', 23, 'Brand new racing game from Evolution Studios, PlayStation 4 exclusive', '39.99', 'img/ps4-driveclub.jpg', 'img/thumbs/ps4-driveclub.jpg', 'driveclub', '29.99', 'ps4-driveclub', 18, '0.20', '2015-06-09 07:58:11', '2015-06-18 13:03:13'),
 (12, 1, 1, 'Ryse: Son of Rome', 25, 'Adrenaline driven action game from Crytek', '44.99', 'img/ryse-son-of-rome.jpg', 'img/thumbs/ryse-son-of-rome.jpg', 'ryse-son-of-rome', NULL, 'ryse-son-of-rome', 8, '0.20', '2015-06-09 12:35:53', '2015-06-28 21:38:16'),
 (13, 1, 0, 'PlayStation 4 500GB Black', 27, 'PlayStation 4 console with 500GB HDD, Dualshock 4 controller, HDMI cable and power adapter.', '449.99', 'img/playstation-4-500-black.png', 'img/thumbs/playstation-4-500-black.png', 'playstation-4-500-black', NULL, 'playstation-4-500-black', 18, '5.40', '2015-06-09 15:45:57', '2015-06-14 13:01:16'),
@@ -524,7 +524,7 @@ INSERT INTO `products` (`id`, `active`, `new`, `name`, `category_id`, `descripti
 --
 
 CREATE TABLE IF NOT EXISTS `states` (
-  `id` int(11) NOT NULL,
+  `id` int(10) NOT NULL,
   `iso_3166_2` char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -678,9 +678,9 @@ ALTER TABLE `orders`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `order_product`
+-- Indexes for table `order_game`
 --
-ALTER TABLE `order_product`
+ALTER TABLE `order_game`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -690,10 +690,10 @@ ALTER TABLE `payment_methods`
  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `products`
+-- Indexes for table `games`
 --
-ALTER TABLE `products`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `products_slug_unique` (`slug`), ADD UNIQUE KEY `products_sku_unique` (`sku`), ADD KEY `products_category_id_foreign` (`category_id`), ADD KEY `products_name_index` (`name`);
+ALTER TABLE `games`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `games_slug_unique` (`slug`), ADD UNIQUE KEY `games_sku_unique` (`sku`), ADD KEY `games_category_id_foreign` (`category_id`), ADD KEY `games_name_index` (`name`);
 
 --
 -- Indexes for table `states`
@@ -733,9 +733,9 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 ALTER TABLE `orders`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
--- AUTO_INCREMENT for table `order_product`
+-- AUTO_INCREMENT for table `order_game`
 --
-ALTER TABLE `order_product`
+ALTER TABLE `order_game`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `payment_methods`
@@ -743,9 +743,9 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 ALTER TABLE `payment_methods`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT for table `games`
 --
-ALTER TABLE `products`
+ALTER TABLE `games`
 MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `status_codes`
@@ -762,10 +762,10 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 
 --
--- Constraints for table `products`
+-- Constraints for table `games`
 --
-ALTER TABLE `products`
-ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `games`
+ADD CONSTRAINT `games_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

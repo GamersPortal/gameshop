@@ -23,7 +23,7 @@ class AddToCartRequest extends Request
     public function rules()
     {
         return [
-          'product_id' => 'required|exists:products,id'
+          'game_id' => 'required|exists:games,id'
         ];
     }
 }

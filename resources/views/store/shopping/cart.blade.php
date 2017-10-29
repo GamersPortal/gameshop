@@ -14,20 +14,20 @@
       </tr>
       </thead>
       <tbody>
-      @foreach($cart->content() as $product)
+      @foreach($cart->content() as $game)
         <tr>
           <td><a class="inherit"
-                 href="{{ route('StoreProductShow', App\Models\Product::findOrFail($product->id)->slug) }}">{{ $product->name }}</a>
+                 href="{{ route('StoreGameShow', App\Models\Game::findOrFail($game->id)->slug) }}">{{ $game->name }}</a>
           </td>
-          <td>${{ $product->price }}</td>
-          <td>{{ $product->qty }}</td>
+          <td>${{ $game->price }}</td>
+          <td>{{ $game->qty }}</td>
           <td>
-            <form id="form-{{ $product->id }}" action="{{ route('StoreRemoveFromCart') }}" method="POST">
+            <form id="form-{{ $game->id }}" action="{{ route('StoreRemoveFromCart') }}" method="POST">
               {!! csrf_field() !!}
-              <input type="hidden" name="rowId" value="{{ $product->rowid }}">
+              <input type="hidden" name="rowId" value="{{ $game->rowid }}">
             </form>
-            <button type="submit" class="btn btn-default" form="form-{{ $product->id }}"
-                    aria-label="Remove product">
+            <button type="submit" class="btn btn-default" form="form-{{ $game->id }}"
+                    aria-label="Remove game">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
           </td>

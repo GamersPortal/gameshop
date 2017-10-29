@@ -68,43 +68,43 @@ Route::group(['prefix' => 'admincp', 'middleware' => 'admincp'], function () {
       'uses' => 'Admin\CategoryController@destroy'
     ]);
     /**
-     * Product related routes
+     * Game related routes
      */
-    Route::get('/products', [
-      'as' => 'AdminProductIndex',
-      'uses' => 'Admin\ProductController@index'
+    Route::get('/games', [
+      'as' => 'AdminGameIndex',
+      'uses' => 'Admin\GameController@index'
     ]);
-    Route::get('/products/search', [
-      'as' => 'AdminProductSearch',
-      'uses' => 'Admin\ProductController@search'
+    Route::get('/games/search', [
+      'as' => 'AdminGameSearch',
+      'uses' => 'Admin\GameController@search'
     ]);
-    Route::get('/products/create', [
-      'as' => 'AdminProductCreate',
-      'uses' => 'Admin\ProductController@create'
+    Route::get('/games/create', [
+      'as' => 'AdminGameCreate',
+      'uses' => 'Admin\GameController@create'
     ]);
-    Route::post('/products', [
-      'as' => 'AdminProductStore',
-      'uses' => 'Admin\ProductController@store'
+    Route::post('/games', [
+      'as' => 'AdminGameStore',
+      'uses' => 'Admin\GameController@store'
     ]);
-    Route::get('/products/{product}', [
-      'as' => 'AdminProductShow',
-      'uses' => 'Admin\ProductController@show'
+    Route::get('/games/{game}', [
+      'as' => 'AdminGameShow',
+      'uses' => 'Admin\GameController@show'
     ]);
-    Route::get('/products/{product}/edit', [
-      'as' => 'AdminProductEdit',
-      'uses' => 'Admin\ProductController@edit'
+    Route::get('/games/{game}/edit', [
+      'as' => 'AdminGameEdit',
+      'uses' => 'Admin\GameController@edit'
     ]);
-    Route::patch('/products/{product}', [
-      'as' => 'AdminProductUpdate',
-      'uses' => 'Admin\ProductController@update'
+    Route::patch('/games/{game}', [
+      'as' => 'AdminGameUpdate',
+      'uses' => 'Admin\GameController@update'
     ]);
-    Route::get('/products/{product}/delete', [
-      'as' => 'AdminProductDelete',
-      'uses' => 'Admin\ProductController@delete'
+    Route::get('/games/{game}/delete', [
+      'as' => 'AdminGameDelete',
+      'uses' => 'Admin\GameController@delete'
     ]);
-    Route::delete('/products/{product}', [
-      'as' => 'AdminProductDestroy',
-      'uses' => 'Admin\ProductController@destroy'
+    Route::delete('/games/{game}', [
+      'as' => 'AdminGameDestroy',
+      'uses' => 'Admin\GameController@destroy'
     ]);
     /**
      * Order related routes
@@ -243,17 +243,17 @@ Route::get('/profile/order/{order}', [
   'uses' => 'UserController@showUserOrder'
 ]);
 /**
- * Showing products and categories
+ * Showing games and categories
  * IMPORTANT: Always have this routes on last lines
  */
 Route::get('/search', [
-  'as' => 'StoreProductSearch',
-  'uses' => 'StoreController@searchProduct'
+  'as' => 'StoreGameSearch',
+  'uses' => 'StoreController@searchGame'
 ]);
-Route::get('/products/{product}', [
-  'middleware' => 'store.product',
-  'as' => 'StoreProductShow',
-  'uses' => 'StoreController@showProduct'
+Route::get('/games/{game}', [
+  'middleware' => 'store.game',
+  'as' => 'StoreGameShow',
+  'uses' => 'StoreController@showGame'
 ]);
 Route::get('/{category}', [
   'middleware' => 'store.category',

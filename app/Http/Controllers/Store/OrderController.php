@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\Shopping\ShippingAddressRequest;
 use App\Models\Address;
 use App\Models\Order;
-use App\Models\OrderProduct;
+use App\Models\OrderGame;
 use Auth;
 use Cart;
 use Event;
@@ -93,26 +93,26 @@ class OrderController extends Controller
         } else {
             $orderData['payment_method_id'] = 2;
         }
-        $cartProducts = \Cart::associate('Product', 'App\Models')->content();
-        $products = new Collection;
-        foreach ($cartProducts as $item) {
-            $products->push([
-              'product' => \App\Models\Product::find($item->id),
+        $cartGames = \Cart::associate('Game', 'App\Models')->content();
+        $games = new Collection;
+        foreach ($cartGames as $item) {
+            $games->push([
+              'game' => \App\Models\Game::find($item->id),
               'quantity' => $item->qty
             ]);
         }
         // Get the order weight
         $orderData['weight'] = 0;
-        foreach ($products as $product) {
-            $orderData['weight'] += $product['product']->weight * $product['quantity'];
+        foreach ($games as $game) {
+            $orderData['weight'] += $game['game']->weight * $game['quantity'];
         }
         $order = Order::create($orderData);
-        foreach ($products as $product) {
-            OrderProduct::create([
+        foreach ($games as $game) {
+            OrderGame::create([
               'order_id' => $order->id,
-              'product_id' => $product['product']->id,
-              'quantity' => $product['quantity'],
-              'price' => (float)$product['product']->price * $product['quantity']
+              'game_id' => $game['game']->id,
+              'quantity' => $game['quantity'],
+              'price' => (float)$game['game']->price * $game['quantity']
             ]);
         }
         Event::fire(new OrderWasPlaced($order));

@@ -1,37 +1,37 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
-use App\Http\Requests\ProductRequest;
-use App\Http\Requests\EditProductRequest;
+use App\Http\Requests\GameRequest;
+use App\Http\Requests\EditGameRequest;
 use App\Http\Controllers\Controller;
 /**
- * Imported Product and Category model classes
+ * Imported Game and Category model classes
  */
-use App\Models\Product;
+use App\Models\Game;
 use App\Models\Category;
 use File;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class GameController extends Controller
 {
 
-    const DEFAULT_IMG = "img/no_product_img.jpg";
+    const DEFAULT_IMG = "img/no_game_img.jpg";
     const PAGINATION_SIZE = 40;
 
     /**
-     * Display a listing of the Product model instances.
+     * Display a listing of the Game model instances.
      *
      * @return Response
      */
     public function index()
     {
-        // Select all products with pagination, paginate 40 products per page
-        $products = Product::paginate(self::PAGINATION_SIZE);
-        return view('admincp.products.index')->with(compact('products'));
+        // Select all games with pagination, paginate 40 games per page
+        $games = Game::paginate(self::PAGINATION_SIZE);
+        return view('admincp.games.index')->with(compact('games'));
     }
 
     /**
-     * Show the form for creating a new product.
+     * Show the form for creating a new game.
      *
      * @return Response
      */
@@ -39,21 +39,21 @@ class ProductController extends Controller
     {
         /**
          * Select all categories that have no child categories and return them in form of
-         * associative array (id => slug) for purpose of selecting product category
+         * associative array (id => slug) for purpose of selecting game category
          *
          * @var Category
          */
         $categories = Category::allLeaves()->lists('slug', 'id');
         $categories[null] = 'No category';
-        return view('admincp.products.create')->with(compact('categories'));
+        return view('admincp.games.create')->with(compact('categories'));
     }
 
     /**
-     * Store a newly created Product in database.
+     * Store a newly created Game in database.
      *
      * @return Response
      */
-    public function store(ProductRequest $request)
+    public function store(GameRequest $request)
     {
         /**
          * Take all inputs except image, store image in seperate variable
@@ -81,12 +81,12 @@ class ProductController extends Controller
             $imagePath = self::DEFAULT_IMG;
             $thumbnailPath = self::DEFAULT_IMG;
         }
-        // Create Product model and save pictures
-        $product = Product::create($input);
-        $product->image = $imagePath;
-        $product->image_thumb = $thumbnailPath;
-        $product->save();
-        return redirect(route('AdminProductIndex'));
+        // Create Game model and save pictures
+        $game = Game::create($input);
+        $game->image = $imagePath;
+        $game->image_thumb = $thumbnailPath;
+        $game->save();
+        return redirect(route('AdminGameIndex'));
     }
 
     /**
@@ -95,22 +95,22 @@ class ProductController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function show(Product $product)
+    public function show(Game $game)
     {
-        return view('admincp.products.show')->with(compact('product'));
+        return view('admincp.games.show')->with(compact('game'));
     }
 
     /**
-     * Shows form for editing product
+     * Shows form for editing game
      *
-     * @param  Product $product
+     * @param  Game $game
      * @return Response
      */
-    public function edit(Product $product)
+    public function edit(Game $game)
     {
         /**
          * Select all categories that have no child categories and return them in form of
-         * associative array (id => slug) for purpose of selecting product category
+         * associative array (id => slug) for purpose of selecting game category
          *
          * @var Category
          */
@@ -120,17 +120,17 @@ class ProductController extends Controller
         exit;
         */
         $categories[null] = 'No category';
-        return view('admincp.products.edit')->with(compact('product', 'categories'));
+        return view('admincp.games.edit')->with(compact('game', 'categories'));
     }
 
     /**
-     * Update the specified product
+     * Update the specified game
      *
-     * @param  ProductRequest $request
-     * @param  Product $product
+     * @param  GameRequest $request
+     * @param  Game $game
      * @return Response
      */
-    public function update(EditProductRequest $request, Product $product)
+    public function update(EditGameRequest $request, Game $game)
     {
         $input = $request->except('image');
         $image = $request->file('image');
@@ -154,55 +154,55 @@ class ProductController extends Controller
             \Image::make($image->getRealPath())->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path($thumbnailPath));
-            // Create Product model and save pictures
-            $product->fill($input);
-            $product->image = $imagePath;
-            $product->image_thumb = $thumbnailPath;
-            $product->save();
-            return redirect(route('AdminProductShow', $product->slug));
+            // Create Game model and save pictures
+            $game->fill($input);
+            $game->image = $imagePath;
+            $game->image_thumb = $thumbnailPath;
+            $game->save();
+            return redirect(route('AdminGameShow', $game->slug));
         }
-        $product->fill($input);
-        $product->save();
-        return redirect(route('AdminProductShow', $product->slug));
+        $game->fill($input);
+        $game->save();
+        return redirect(route('AdminGameShow', $game->slug));
     }
 
     /**
-     * Show the form for deleting specific product
+     * Show the form for deleting specific game
      *
-     * @param  Product $product
+     * @param  Game $game
      * @return Response
      */
-    public function delete(Product $product)
+    public function delete(Game $game)
     {
-        return view('admincp.products.delete')->with(compact('product'));
+        return view('admincp.games.delete')->with(compact('game'));
     }
 
     /**
-     * Deletes product
+     * Deletes game
      *
-     * @param  Product $product
+     * @param  Game $game
      * @return Response
      */
-    public function destroy(Product $product)
+    public function destroy(Game $game)
     {
         /**
-         * If the image of the product is not default 'No image available'
+         * If the image of the game is not default 'No image available'
          * image delete image from public directory
          */
-        if (public_path($product->image) != public_path(self::DEFAULT_IMG)) {
+        if (public_path($game->image) != public_path(self::DEFAULT_IMG)) {
             // Check if files exist
-            if (File::exists(public_path($product->image)) && File::exists(public_path($product->image_thumb))) {
-                File::delete(public_path($product->image));
-                File::delete(public_path($product->image_thumb));
+            if (File::exists(public_path($game->image)) && File::exists(public_path($game->image_thumb))) {
+                File::delete(public_path($game->image));
+                File::delete(public_path($game->image_thumb));
             }
         }
-        // Delete product
-        $product->delete();
-        return redirect(route('AdminProductIndex'));
+        // Delete game
+        $game->delete();
+        return redirect(route('AdminGameIndex'));
     }
 
     /**
-     * Search products table
+     * Search games table
      *
      * @param  Request $request
      * @return Response
@@ -210,8 +210,8 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
-        $products = Product::where('name', 'like', '%' . $query . '%')
+        $games = Game::where('name', 'like', '%' . $query . '%')
           ->paginate(self::PAGINATION_SIZE);
-        return view('admincp.products.index', compact('products'));
+        return view('admincp.games.index', compact('games'));
     }
 }

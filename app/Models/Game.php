@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Game extends Model
 {
 
-    protected $table = 'products';
+    protected $table = 'games';
 
     protected $fillable = [
       'name',
@@ -28,7 +28,7 @@ class Product extends Model
     ];
 
     /**
-     * Returns category of product
+     * Returns category of game
      *
      * @return App\Models\Category
      */
@@ -59,7 +59,7 @@ class Product extends Model
     {
         parent::boot();
         /**
-         * Triggered when Product model is saved
+         * Triggered when Game model is saved
          */
         static::saving(function ($model) {
             /**
@@ -71,8 +71,8 @@ class Product extends Model
         });
     }
 
-    public function products()
+    public function games()
     {
-        return $this->belongsToMany('App\Models\Order', 'order_product');
+        return $this->belongsToMany('App\Models\Order', 'order_game');
     }
 }
