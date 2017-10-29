@@ -15,14 +15,7 @@
       </tr>
       </thead>
       <tbody>
-      @foreach($customers as $customer)
-        <tr data-href="{{ route('AdminCustomerShow', $customer) }}">
-          <td>{{ $customer->id }}</td>
-          <td>{{ $customer->name }}</td>
-          <td>{{ $customer->address->country->name }}</td>
-          <td>{{ $customer->created_at->format('d.m.Y.  H:i:s') }}</td>
-        </tr>
-      @endforeach
+<tr><td>Empty table</td></tr>
       </tbody>
     </table>
   </div>

@@ -20,15 +20,12 @@
             <dd>{{ $order->status_code->name }}</dd>
 
             <dt>Order date and time</dt>
-            <dd>{{ $order->created_at->format('d.m.Y.  H:i:s e') }}</dd>
+            <dd>&nbsp;</dd>
 
             <dt>Adddress</dt>
-            <dd>{{ $order->address->name }}</dd>
-            <dd>{{ $order->address->street }}</dd>
-            <dd>{{ $order->address->ZIP . ' ' . $order->address->city }}</dd>
-            <dd>{{ $order->address->country->name }}{{ $order->address->state_id ? ', ' . $order->address->state->name : '' }}</dd>
+            <dd>&nbsp;</dd>
             <dt>Payment method</dt>
-            <dd>{{ $order->payment_method->name }}</dd>
+            <dd>&nbsp;</dd>
 
             <dt>Weight</dt>
             <dd>{{ $order->weight }}</dd>
