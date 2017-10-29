@@ -104,7 +104,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeAdminSidebar()
     {
-        view()->composer('admin.sidebar', function ($view) {
+        view()->composer('admincp.sidebar', function ($view) {
             $view->with([
               'pendingOrderCount' => Order::where('status_code_id', 1)->count(),
               'proccessingOrderCount' => Order::where('status_code_id', 2)->count(),

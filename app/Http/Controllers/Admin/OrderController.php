@@ -27,18 +27,18 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::orderBy('status_code_id')->orderBy('created_at', 'asc')->paginate(self::PAGINATION_SIZE);
-        return view('admin.orders.index', compact('orders'));
+        return view('admincp.orders.index', compact('orders'));
     }
 
     public function show(Order $order)
     {
-        return view('admin.orders.show', compact('order'));
+        return view('admincp.orders.show', compact('order'));
     }
 
     public function edit(Order $order)
     {
         $statusCodes = StatusCode::where('id', '!=', 1)->lists('name', 'id');
-        return view('admin.orders.edit', compact('statusCodes', 'order'));
+        return view('admincp.orders.edit', compact('statusCodes', 'order'));
     }
 
     public function update(EditOrderRequest $request, Order $order)
@@ -53,6 +53,6 @@ class OrderController extends Controller
     {
         $query = $request->get('orderFilter');
         $orders = Order::where('status_code_id', $query)->orderBy('created_at', 'asc')->paginate(self::PAGINATION_SIZE);
-        return view('admin.orders.index', compact('orders'));
+        return view('admincp.orders.index', compact('orders'));
     }
 }

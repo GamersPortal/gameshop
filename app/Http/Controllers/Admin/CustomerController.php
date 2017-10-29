@@ -17,11 +17,11 @@ class CustomerController extends Controller
     {
         $customers = User::paginate(self::PAGINATION_SIZE);
 
-        return view('admin.customers.index', compact('customers'));
+        return view('admincp.customers.index', compact('customers'));
     }
 
     public function show(User $user)
     {
-        return view('admin.customers.show', ['customer' => $user]);
+        return view('admincp.customers.show', ['customer' => $user]);
     }
 }

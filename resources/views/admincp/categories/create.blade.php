@@ -1,9 +1,9 @@
-@extends('admin.master', ['title' => 'Edit category'])
+@extends('admincp.master', ['title' => 'Admin panel - Create new category'])
 
 @section('content')
-  <div class="col-sm-8">
+  <div class="col-sm-6">
     <div class="form">
-      {!! Form::model($category, ['method' => 'PATCH', 'url'=> route('AdminCategoryUpdate', $category->slug)]) !!}
+      {!! Form::open(['method' => 'POST', 'url'=> route('AdminCategoryStore')]) !!}
       <div class="form-group">
         {!! Form::label('name', 'Name:') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -17,7 +17,7 @@
         {!! Form::text('slug', null, ['class' => 'form-control']) !!}
       </div>
       <div class="form-group">
-        {!! Form::submit('Update category',  ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit('Create category',  ['class' => 'btn btn-primary form-control']) !!}
       </div>
       {!! Form::close() !!}
     </div>

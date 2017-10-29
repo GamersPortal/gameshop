@@ -1,4 +1,4 @@
-@extends('admin.master', ['title' => 'Change order #' . $order->id . ' status'])
+@extends('admincp.master', ['title' => 'Change order #' . $order->id . ' status'])
 
 @section('content')
   <div class="col-sm-12">

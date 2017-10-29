@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 </head>
-<body class="admin">
+<body class="admincp">
 @yield('main')
 
 <script type="text/javascript" src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>

@@ -1,4 +1,4 @@
-@extends('admin.master', ['title' => 'Are you sure?'])
+@extends('admincp.master', ['title' => 'Are you sure?'])
 
 @section('content')
   <div class="col-sm-12">

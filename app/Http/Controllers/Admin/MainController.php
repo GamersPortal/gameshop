@@ -11,12 +11,12 @@ class MainController extends Controller
 
     public function index()
     {
-        return view('admin.overview');
+        return view('admincp.overview');
     }
 
     public function getLogin()
     {
-        return view('admin.auth.login');
+        return view('admincp.auth.login');
     }
 
     public function postLogin(LoginRequest $request)
@@ -27,7 +27,7 @@ class MainController extends Controller
           $remember)
         ) {
             if (auth()->user()->isAdmin()) {
-                return redirect()->intended('admin');
+                return redirect()->intended('admincp');
             } else {
                 Auth::logout();
                 return redirect()->route('AdminLoginGet')->with('flag', 'wrongLogin');

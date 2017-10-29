@@ -1,4 +1,4 @@
-@extends('admin.master', ['title' => 'Customer #' . $customer->id])
+@extends('admincp.master', ['title' => 'Customer #' . $customer->id])
 
 @section('content')
   <div class="col-sm-12">

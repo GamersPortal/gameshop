@@ -12,22 +12,22 @@
 /**
  * Admin login routes
  */
-Route::get('admin/login', [
+Route::get('admincp/login', [
   'as' => 'AdminLoginGet',
   'middleware' => 'guest',
   'uses' => 'Admin\MainController@getLogin'
 ]);
-Route::post('admin/login', [
+Route::post('admincp/login', [
   'as' => 'AdminLoginPost',
   'middleware' => 'guest',
   'uses' => 'Admin\MainController@postLogin'
 ]);
-Route::get('admin/logout', [
+Route::get('admincp/logout', [
   'as' => 'AdminLogout',
-  'middleware' => ['auth', 'admin'],
+  'middleware' => ['auth', 'admincp'],
   'uses' => 'Admin\MainController@logout'
 ]);
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admincp', 'middleware' => 'admincp'], function () {
     Route::get('/', [
       'as' => 'AdminOverview',
       'uses' => 'Admin\MainController@index'
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
       'uses' => 'Admin\OrderController@update'
     ]);
     /**
-     * Customer related admin routes
+     * Customer related admincp routes
      */
     Route::model('user', 'App\User');
     Route::get('/customers', [

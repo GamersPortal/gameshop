@@ -10,7 +10,7 @@ Laravel based webshop for video games, consoles and console accessories. Persona
 * "Pay with card" payment method using Stripe
 * overview of all orders
 
-## Back-end admin functionalities
+## Back-end admincp functionalities
 * CRUD operations on products and categories
 * proccessing orders
 * overview of all users

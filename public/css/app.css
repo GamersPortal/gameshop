@@ -6228,7 +6228,7 @@ button.close {
  * Base structure
  */
 /* Move down content because we have a fixed navbar that is 50px tall */
-body.admin {
+body.admincp {
   padding-top: 50px; }
 
 /*
@@ -6306,7 +6306,7 @@ div.categories {
 body {
   background-color: #F0F0F0; }
 
-body.admin {
+body.admincp {
   background-color: white; }
 
 div.main {

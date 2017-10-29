@@ -1,4 +1,4 @@
-@extends('admin.master', ['title' => 'Admin panel - Categories'])
+@extends('admincp.master', ['title' => 'Admin panel - Categories'])
 
 @section('content')
 

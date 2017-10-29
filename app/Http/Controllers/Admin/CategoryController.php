@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
         // Select all categories with pagination, 15 categories per page
         $categories = Category::paginate(15);
-        return view('admin.categories.index')->with(compact('categories'));
+        return view('admincp.categories.index')->with(compact('categories'));
     }
 
     /**
@@ -33,7 +33,7 @@ class CategoryController extends Controller
     {
         $categories = Category::lists('slug', 'id');
         $categories[''] = 'No parent (root)';
-        return view('admin.categories.create')->with(compact('categories'));
+        return view('admincp.categories.create')->with(compact('categories'));
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('admin.categories.show')->with(compact('category'));
+        return view('admincp.categories.show')->with(compact('category'));
     }
 
     /**
@@ -81,7 +81,7 @@ class CategoryController extends Controller
          */
         $categories = Category::where('id', '<>', $category->id)->lists('slug', 'id');
         $categories[''] = 'No parent (root)';
-        return view('admin.categories.edit')->with(compact('category', 'categories'));
+        return view('admincp.categories.edit')->with(compact('category', 'categories'));
     }
 
     /**
@@ -119,7 +119,7 @@ class CategoryController extends Controller
      */
     public function delete(Category $category)
     {
-        return view('admin.categories.delete')->with(compact('category'));
+        return view('admincp.categories.delete')->with(compact('category'));
     }
 
     /**

@@ -1,8 +1,8 @@
 @import 'bootstrap/assets/stylesheets/custom-variables.scss';
 @import 'bootstrap/assets/stylesheets/bootstrap.scss';
 
-@import 'bootstrap_admin.scss';
-@import 'admin_markup.scss';
+@import 'bootstrap_admincp.scss';
+@import 'admincp_markup.scss';
 
 $brand-orange: #FF7043;
 
@@ -11,7 +11,7 @@ body{
 	
 }
 
-body.admin{
+body.admincp{
 	background-color: white;
 }
 

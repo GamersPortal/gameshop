@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         // Select all products with pagination, paginate 40 products per page
         $products = Product::paginate(self::PAGINATION_SIZE);
-        return view('admin.products.index')->with(compact('products'));
+        return view('admincp.products.index')->with(compact('products'));
     }
 
     /**
@@ -45,7 +45,7 @@ class ProductController extends Controller
          */
         $categories = Category::allLeaves()->lists('slug', 'id');
         $categories[null] = 'No category';
-        return view('admin.products.create')->with(compact('categories'));
+        return view('admincp.products.create')->with(compact('categories'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.products.show')->with(compact('product'));
+        return view('admincp.products.show')->with(compact('product'));
     }
 
     /**
@@ -120,7 +120,7 @@ class ProductController extends Controller
         exit;
         */
         $categories[null] = 'No category';
-        return view('admin.products.edit')->with(compact('product', 'categories'));
+        return view('admincp.products.edit')->with(compact('product', 'categories'));
     }
 
     /**
@@ -174,7 +174,7 @@ class ProductController extends Controller
      */
     public function delete(Product $product)
     {
-        return view('admin.products.delete')->with(compact('product'));
+        return view('admincp.products.delete')->with(compact('product'));
     }
 
     /**
@@ -212,6 +212,6 @@ class ProductController extends Controller
         $query = $request->get('q');
         $products = Product::where('name', 'like', '%' . $query . '%')
           ->paginate(self::PAGINATION_SIZE);
-        return view('admin.products.index', compact('products'));
+        return view('admincp.products.index', compact('products'));
     }
 }

@@ -1,9 +1,9 @@
-@extends('admin.primary-master', ['title' => 'Sign in'])
+@extends('admincp.primary-master', ['title' => 'Sign in'])
 
 @section('main')
 
   @if(session('flag'))
-    @include('admin.auth.loginMessage')
+    @include('admincp.auth.loginMessage')
   @endif
 
   {!! Form::open(['method' => 'POST', 'url' => route('AdminLoginPost'), 'class' => 'form-signin']) !!}
